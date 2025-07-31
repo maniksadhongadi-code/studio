@@ -41,7 +41,7 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
       
       <div className="flex-grow flex">
         <div className="w-12 bg-gray-800 flex items-center justify-center">
-          <p className="text-white font-bold tracking-[0.4em] uppercase" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+          <p className="text-white font-bold tracking-[0.4em] uppercase" style={{ writingMode: 'vertical-rl' }}>
             STUDENT
           </p>
         </div>
