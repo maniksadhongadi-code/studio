@@ -43,9 +43,22 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
       
       <div className="flex-grow flex">
         <div className="w-12 bg-gray-800 flex items-center justify-center relative">
-          <p className="text-white font-bold tracking-[0.4em] uppercase" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
-            STUDENT
-          </p>
+          <svg width="100%" height="100%" viewBox="0 0 48 400" preserveAspectRatio="xMidYMid meet">
+            <text
+              x="24"
+              y="200"
+              transform="rotate(-90, 24, 200)"
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="white"
+              fontSize="14"
+              fontWeight="bold"
+              letterSpacing="0.4em"
+              className="uppercase"
+            >
+              STUDENT
+            </text>
+          </svg>
         </div>
 
         <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white to-gray-50">
