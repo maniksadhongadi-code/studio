@@ -8,7 +8,6 @@ type CardData = ComponentProps<typeof IdCardPreview>;
 
 const firstNames = ['Amit', 'Sunita', 'Rajesh', 'Priya', 'Vikram', 'Anjali', 'Deepak', 'Kavita'];
 const lastNames = ['Kumar', 'Sharma', 'Singh', 'Patel', 'Gupta', 'Reddy', 'Chopra', 'Malhotra'];
-const departments = ['Computer Science', 'Mechanical', 'Electrical', 'Civil', 'Electronics'];
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 const getRandomItem = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -22,8 +21,8 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
     name: `${capitalize(firstName)} ${capitalize(lastName)}`,
     mobile: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
     emergency: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
-    session: `202${Math.floor(Math.random() * 4)}-202${Math.floor(Math.random() * 4) + 4}`,
-    department: getRandomItem(departments),
+    session: '2024-2028',
+    department: 'CSE',
     bloodGroup: getRandomItem(bloodGroups),
   };
 };
