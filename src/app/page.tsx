@@ -8,8 +8,36 @@ import { ImageGallery } from '@/components/image-gallery';
 
 type CardData = ComponentProps<typeof IdCardPreview>;
 
-const firstNames = ['Amit', 'Sunita', 'Rajesh', 'Priya', 'Vikram', 'Anjali', 'Deepak', 'Kavita'];
-const lastNames = ['Kumar', 'Sharma', 'Singh', 'Patel', 'Gupta', 'Reddy', 'Chopra', 'Malhotra'];
+const firstNames = [
+  'Aarav', 'Arjun', 'Aditya', 'Aaryan', 'Arnav', 'Advik', 'Ayaan', 'Atharv', 'Ansh', 'Abhinav', 
+  'Anirudh', 'Amol', 'Bhavesh', 'Bhavin', 'Brijesh', 'Chetan', 'Chirag', 'Darshan', 'Deepak', 'Dev', 
+  'Dhruv', 'Eklavya', 'Gaurav', 'Ganesh', 'Gautam', 'Girish', 'Harish', 'Harsh', 'Hemant', 'Hitesh',
+  'Ishaan', 'Ishan', 'Jatin', 'Jay', 'Jignesh', 'Kamal', 'Karan', 'Kartik', 'Kaushik', 'Kunal',
+  'Kush', 'Lakshay', 'Lalit', 'Madhav', 'Manan', 'Manish', 'Mayank', 'Mihir', 'Mohit', 'Nakul',
+  'Naman', 'Nikhil', 'Nirav', 'Nishant', 'Nitin', 'Om', 'Parth', 'Piyush', 'Pranav', 'Pranay',
+  'Prashant', 'Prateek', 'Rahul', 'Raj', 'Rajan', 'Rajat', 'Rakesh', 'Rishi', 'Rohan', 'Rohit',
+  'Ronak', 'Sachin', 'Sahil', 'Sameer', 'Sandeep', 'Sanjay', 'Sanket', 'Saurabh', 'Shreyas', 'Shubham',
+  'Siddharth', 'Soham', 'Sumit', 'Sunny', 'Tushar', 'Uday', 'Utkarsh', 'Varun', 'Vikas', 'Vinay',
+  'Vipul', 'Vishal', 'Vivek', 'Yash', 'Yogesh', 'Aahana', 'Aanya', 'Aaradhya', 'Aashi', 'Aditi',
+  'Advika', 'Ahana', 'Alisha', 'Amrita', 'Ananya', 'Anika', 'Anjali', 'Anusha', 'Aradhya', 'Avani',
+  'Bhavya', 'Charvi', 'Diya', 'Drishti', 'Esha', 'Gauri', 'Gayatri', 'Hina', 'Ira', 'Ishita',
+  'Jhanvi', 'Jiya', 'Kavya', 'Keya', 'Khushi', 'Kiara', 'Kriti', 'Larisa', 'Mahika', 'Meera',
+  'Myra', 'Naina', 'Navya', 'Neha', 'Niharika', 'Nisha', 'Nitya', 'Oviya', 'Palak', 'Pari',
+  'Pooja', 'Prachi', 'Pragya', 'Pranavi', 'Riya', 'Saanvi', 'Sakshi', 'Samaira', 'Sara', 'Shanaya',
+  'Shreya', 'Siya', 'Sneha', 'Tanvi', 'Tanya', 'Tara', 'Tiya', 'Vanya', 'Vedika', 'Vidya',
+  'Vrinda', 'Yashvi', 'Zara'
+];
+const lastNames = [
+    'Kumar', 'Sharma', 'Singh', 'Patel', 'Gupta', 'Reddy', 'Chopra', 'Malhotra', 'Jain', 'Verma',
+    'Mehta', 'Shah', 'Yadav', 'Mishra', 'Pandey', 'Tiwari', 'Dubey', 'Chauhan', 'Rathore', 'Rao',
+    'Naidu', 'Iyer', 'Menon', 'Nair', 'Pillai', 'Joshi', 'Bhat', 'Kulkarni', 'Deshpande', 'Das',
+    'Choudhury', 'Sarkar', 'Bose', 'Ghosh', 'Banerjee', 'Mukherjee', 'Chatterjee', 'Dutta', 'Roy',
+    'Agarwal', 'Goel', 'Singhal', 'Bansal', 'Garg', 'Jindal', 'Mittal', 'Agrawal', 'Gupta', 'Khandelwal',
+    'Maheshwari', 'Oswal', 'Parekh', 'Lodha', 'Chhabra', 'Arora', 'Khatri', 'Sethi', 'Malik', 'Kapoor',
+    'Khanna', 'Mehra', 'Anand', 'Puri', 'Suri', 'Ahluwalia', 'Grover', 'Dhawan', 'Bhasin', 'Bhatia',
+    'Bedi', 'Sodhi', 'Kohli', 'Sahni', 'Narula', 'Chawla', 'Taneja', 'Walia', 'Bindra', 'Lamba',
+    'Sachdeva', 'Ahluwalia', 'Bajwa', 'Dhillon', 'Sidhu', 'Brar', 'Gill', 'Sandhu', 'Mann', 'Grewal'
+];
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
