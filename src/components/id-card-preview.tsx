@@ -85,8 +85,8 @@ export function IdCardPreview({
             </div>
           </div>
 
-          <div className="mt-auto w-full text-center">
-             <p className="font-signature text-3xl text-gray-800 h-10" style={{fontFamily: "'Alex Brush', cursive"}}>{name}</p>
+          <div className="mt-auto pt-4 w-full text-center">
+             <div className="h-10"></div>
              <p className="text-xs text-gray-700 font-semibold border-t-2 border-gray-400 border-dashed pt-1 mt-1">Authorized Signatory</p>
           </div>
         </div>
