@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Upload } from 'lucide-react';
+import { Upload, Shuffle } from 'lucide-react';
 
 type CardData = {
   name?: string;
@@ -18,9 +18,10 @@ type CardData = {
 type IdCardFormProps = {
   onUpdate: (data: Partial<CardData>) => void;
   initialData: CardData;
+  onRegenerate: () => void;
 };
 
-export function IdCardForm({ onUpdate, initialData }: IdCardFormProps) {
+export function IdCardForm({ onUpdate, initialData, onRegenerate }: IdCardFormProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     onUpdate({ [name]: value });
@@ -42,8 +43,16 @@ export function IdCardForm({ onUpdate, initialData }: IdCardFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Generate Your ID Card</CardTitle>
-        <CardDescription>Fill in the details below to see your ID card preview.</CardDescription>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle>Generate Your ID Card</CardTitle>
+            <CardDescription>Fill in the details below to see your ID card preview.</CardDescription>
+          </div>
+          <Button variant="outline" onClick={onRegenerate}>
+            <Shuffle className="mr-2 h-4 w-4" />
+            Regenerate
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
