@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, ComponentProps } from 'react';
+import { useState, useEffect, useRef, ComponentProps } from 'react';
+import html2canvas from 'html2canvas';
 import { IdCardForm } from '@/components/id-card-form';
 import { IdCardPreview } from '@/components/id-card-preview';
 
@@ -27,7 +28,6 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
   };
 };
 
-
 export default function Home() {
   const [cardData, setCardData] = useState<CardData>({
     name: '',
@@ -38,6 +38,8 @@ export default function Home() {
     bloodGroup: '',
     photo: null,
   });
+
+  const cardPreviewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCardData(prev => ({...prev, ...generateRandomData()}));
@@ -52,6 +54,17 @@ export default function Home() {
     setCardData(prev => ({...prev, ...randomData }));
   };
 
+  const handleDownload = () => {
+    if (cardPreviewRef.current) {
+      html2canvas(cardPreviewRef.current, { scale: 3 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'id-card.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
@@ -64,10 +77,10 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
           <div className="lg:col-span-3">
-            <IdCardForm onUpdate={handleUpdate} initialData={cardData} onRegenerate={handleRegenerate}/>
+            <IdCardForm onUpdate={handleUpdate} initialData={cardData} onRegenerate={handleRegenerate} onDownload={handleDownload}/>
           </div>
           <div className="lg:col-span-2 flex justify-center lg:sticky lg:top-8">
-            <IdCardPreview {...cardData} />
+            <IdCardPreview ref={cardPreviewRef} {...cardData} />
           </div>
         </div>
       </main>

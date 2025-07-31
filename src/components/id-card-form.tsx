@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Upload, Shuffle } from 'lucide-react';
+import { Upload, Shuffle, Download } from 'lucide-react';
 
 type CardData = {
   name?: string;
@@ -19,9 +19,10 @@ type IdCardFormProps = {
   onUpdate: (data: Partial<CardData>) => void;
   initialData: CardData;
   onRegenerate: () => void;
+  onDownload: () => void;
 };
 
-export function IdCardForm({ onUpdate, initialData, onRegenerate }: IdCardFormProps) {
+export function IdCardForm({ onUpdate, initialData, onRegenerate, onDownload }: IdCardFormProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     onUpdate({ [name]: value });
@@ -89,15 +90,21 @@ export function IdCardForm({ onUpdate, initialData, onRegenerate }: IdCardFormPr
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor={photoInputId} className="block mb-2">Your Photo</Label>
-            <Input id={photoInputId} name="photo" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-            <Button asChild variant="outline" className="w-full">
-              <label htmlFor={photoInputId} className="cursor-pointer">
-                <Upload className="mr-2 h-4 w-4" />
-                Upload Photo
-              </label>
-            </Button>
+          <div className="space-y-2 pt-2">
+            <Label className="block mb-2">Actions</Label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input id={photoInputId} name="photo" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+                <Button asChild variant="outline" className="w-full">
+                  <label htmlFor={photoInputId} className="cursor-pointer">
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload Photo
+                  </label>
+                </Button>
+                <Button onClick={onDownload} className="w-full">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Card
+                </Button>
+            </div>
           </div>
         </form>
       </CardContent>

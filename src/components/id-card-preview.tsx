@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 
@@ -19,7 +20,7 @@ const CollegeLogo = () => (
     </div>
 );
 
-export function IdCardPreview({
+export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps>(({
   name = "Your Name",
   mobile = "9876543210",
   emergency = "0123456789",
@@ -27,9 +28,9 @@ export function IdCardPreview({
   department = "Computer Science",
   bloodGroup = "O+",
   photo,
-}: IdCardPreviewProps) {
+}, ref) => {
   return (
-    <Card className="w-[350px] h-[550px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans relative transform transition-transform duration-500 hover:scale-105">
+    <Card ref={ref} className="w-[350px] h-[550px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans relative transform transition-transform duration-500 hover:scale-105">
       <div className="h-28 bg-primary flex items-center justify-end p-4 relative">
         <CollegeLogo />
         <div className="text-center w-full pl-12">
@@ -97,4 +98,6 @@ export function IdCardPreview({
         </div>
     </Card>
   );
-}
+});
+
+IdCardPreview.displayName = 'IdCardPreview';
