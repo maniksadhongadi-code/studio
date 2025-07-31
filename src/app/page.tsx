@@ -10,7 +10,6 @@ type CardData = ComponentProps<typeof IdCardPreview>;
 export default function Home() {
   const [cardData, setCardData] = useState<CardData>({
     name: 'Your Name',
-    idNumber: 'ID-12345',
     mobile: '9876543210',
     emergency: '0123456789',
     session: '2024-2028',

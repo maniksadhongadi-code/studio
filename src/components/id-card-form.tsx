@@ -9,7 +9,6 @@ import { Upload } from 'lucide-react';
 
 type CardData = {
   name?: string;
-  idNumber?: string;
   mobile?: string;
   emergency?: string;
   session?: string;
@@ -32,7 +31,11 @@ export function IdCardForm({ onUpdate, initialData }: IdCardFormProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      onUpdate({ photo: URL.createObjectURL(file) });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        onUpdate({ photo: reader.result as string });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -52,48 +55,42 @@ export function IdCardForm({ onUpdate, initialData }: IdCardFormProps) {
               <Input id="name" name="name" value={initialData.name} onChange={handleInputChange} placeholder="e.g. John Doe" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="idNumber">ID Number</Label>
-              <Input id="idNumber" name="idNumber" value={initialData.idNumber} onChange={handleInputChange} placeholder="e.g. SC-12345" />
+                <Label htmlFor="mobile">Mobile Number</Label>
+                <Input id="mobile" name="mobile" value={initialData.mobile} onChange={handleInputChange} placeholder="e.g. 9876543210" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div className="space-y-2">
-                <Label htmlFor="mobile">Mobile Number</Label>
-                <Input id="mobile" name="mobile" value={initialData.mobile} onChange={handleInputChange} placeholder="e.g. 9876543210" />
-            </div>
             <div className="space-y-2">
                 <Label htmlFor="emergency">Emergency Contact</Label>
                 <Input id="emergency" name="emergency" value={initialData.emergency} onChange={handleInputChange} placeholder="e.g. 0123456789" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="department">Department</Label>
+              <Input id="department" name="department" value={initialData.department} onChange={handleInputChange} placeholder="e.g. Computer Science" />
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="session">Session Year</Label>
+              <Label htmlFor="session">Session (Year)</Label>
               <Input id="session" name="session" value={initialData.session} onChange={handleInputChange} placeholder="e.g. 2024-2028" />
             </div>
-             <div className="space-y-2">
-              <Label htmlFor="department">Department</Label>
-              <Input id="department" name="department" value={initialData.department} onChange={handleInputChange} placeholder="e.g. Computer Science" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div className="space-y-2">
+            <div className="space-y-2">
               <Label htmlFor="bloodGroup">Blood Group</Label>
               <Input id="bloodGroup" name="bloodGroup" value={initialData.bloodGroup} onChange={handleInputChange} placeholder="e.g. O+" />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor={photoInputId} className="block mb-2">Your Photo</Label>
-              <Input id={photoInputId} name="photo" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-              <Button asChild variant="outline" className="w-full">
-                <label htmlFor={photoInputId} className="cursor-pointer">
-                  <Upload className="mr-2 h-4 w-4" />
-                  Upload Photo
-                </label>
-              </Button>
-            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor={photoInputId} className="block mb-2">Your Photo</Label>
+            <Input id={photoInputId} name="photo" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+            <Button asChild variant="outline" className="w-full">
+              <label htmlFor={photoInputId} className="cursor-pointer">
+                <Upload className="mr-2 h-4 w-4" />
+                Upload Photo
+              </label>
+            </Button>
           </div>
         </form>
       </CardContent>
