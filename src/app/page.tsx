@@ -36,7 +36,7 @@ export default function Home() {
           <div className="lg:col-span-3">
             <IdCardForm onUpdate={handleUpdate} initialData={cardData} />
           </div>
-          <div className="lg:col-span-2 flex justify-center items-center lg:sticky lg:top-8">
+          <div className="lg:col-span-2 flex justify-center lg:sticky lg:top-8">
             <IdCardPreview {...cardData} />
           </div>
         </div>

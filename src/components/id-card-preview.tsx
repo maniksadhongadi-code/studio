@@ -12,8 +12,8 @@ type IdCardPreviewProps = {
 };
 
 const CollegeLogo = () => (
-    <div className="absolute top-3 left-4 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#B91C1C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <div className="absolute top-3 left-4 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-700 w-10 h-10">
             <path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path>
         </svg>
     </div>
@@ -30,22 +30,22 @@ export function IdCardPreview({
 }: IdCardPreviewProps) {
   return (
     <Card className="w-[350px] h-[550px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans relative transform transition-transform duration-500 hover:scale-105">
-      <div className="h-28 bg-primary flex items-center justify-center p-4 relative">
+      <div className="h-28 bg-primary flex items-center justify-end p-4 relative">
         <CollegeLogo />
-        <div className="text-center pl-12">
+        <div className="text-center w-full pl-12">
           <h2 className="font-bold text-xl leading-tight text-white">RAMGARH ENGINEERING COLLEGE</h2>
           <p className="text-xs text-amber-300 font-semibold">(Estd. by govt. of Jharkhand & run by Techno India under PPP)</p>
         </div>
       </div>
       
-      <div className="flex-1 flex">
+      <div className="flex-grow flex">
         <div className="w-12 bg-gray-800 flex items-center justify-center">
           <p className="text-white font-bold tracking-[0.4em] uppercase" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
             STUDENT
           </p>
         </div>
 
-        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800" style={{backgroundImage: 'linear-gradient(to bottom, #ffffff, #f9fafb)'}}>
+        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white to-gray-50">
           <p className="text-primary font-bold mb-2 text-lg">Student ID</p>
           <div className="w-32 h-40 rounded-lg border-4 border-primary shadow-md overflow-hidden mb-3 shrink-0">
             <Image
@@ -58,35 +58,35 @@ export function IdCardPreview({
             />
           </div>
 
-          <div className="w-full text-sm space-y-1.5 text-left font-medium">
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Name</span>
+          <div className="w-full text-sm space-y-2 text-left font-medium">
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Name</span>
               <span className="font-bold">: {name}</span>
             </div>
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Mobile No</span>
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Mobile No</span>
               <span className="font-bold">: {mobile}</span>
             </div>
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Emergency</span>
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Emergency</span>
               <span className="font-bold">: {emergency}</span>
             </div>
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Department</span>
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Department</span>
               <span className="font-bold">: {department}</span>
             </div>
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Session(Year)</span>
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Session(Year)</span>
               <span className="font-bold">: {session}</span>
             </div>
-            <div className="flex">
-              <span className="font-bold w-28 text-gray-600">Blood Group</span>
+            <div className="flex items-center">
+              <span className="font-bold w-28 text-gray-600 shrink-0">Blood Group</span>
               <span className="font-bold">: {bloodGroup}</span>
             </div>
           </div>
 
           <div className="mt-auto w-full text-center">
-             <p className="font-signature text-3xl text-gray-800" style={{fontFamily: "'Alex Brush', cursive"}}>{name}</p>
+             <p className="font-signature text-3xl text-gray-800 h-10" style={{fontFamily: "'Alex Brush', cursive"}}>{name}</p>
              <p className="text-xs text-gray-700 font-semibold border-t-2 border-gray-400 border-dashed pt-1 mt-1">Authorized Signatory</p>
           </div>
         </div>
