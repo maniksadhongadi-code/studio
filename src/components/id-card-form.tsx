@@ -47,12 +47,8 @@ export function IdCardForm({ onUpdate, initialData, onRegenerate, onDownload }: 
         <div className="flex justify-between items-center">
           <div>
             <CardTitle>Generate Your ID Card</CardTitle>
-            <CardDescription>Fill in the details below to see your ID card preview.</CardDescription>
+            <CardDescription>Fill in the details below or use the regenerate button.</CardDescription>
           </div>
-          <Button variant="outline" onClick={onRegenerate}>
-            <Shuffle className="mr-2 h-4 w-4" />
-            Regenerate
-          </Button>
         </div>
       </CardHeader>
       <CardContent>
@@ -92,13 +88,17 @@ export function IdCardForm({ onUpdate, initialData, onRegenerate, onDownload }: 
 
           <div className="space-y-2 pt-2">
             <Label className="block mb-2">Actions</Label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Input id={photoInputId} name="photo" type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                 <Button asChild variant="outline" className="w-full">
                   <label htmlFor={photoInputId} className="cursor-pointer">
                     <Upload className="mr-2 h-4 w-4" />
                     Upload Photo
                   </label>
+                </Button>
+                <Button variant="outline" onClick={onRegenerate} className="w-full">
+                    <Shuffle className="mr-2 h-4 w-4" />
+                    Regenerate
                 </Button>
                 <Button onClick={onDownload} className="w-full">
                     <Download className="mr-2 h-4 w-4" />

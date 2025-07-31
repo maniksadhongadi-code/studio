@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, ComponentProps } from 'react';
 import html2canvas from 'html2canvas';
 import { IdCardForm } from '@/components/id-card-form';
 import { IdCardPreview } from '@/components/id-card-preview';
+import { ImageGallery } from '@/components/image-gallery';
 
 type CardData = ComponentProps<typeof IdCardPreview>;
 
@@ -11,14 +12,13 @@ const firstNames = ['Amit', 'Sunita', 'Rajesh', 'Priya', 'Vikram', 'Anjali', 'De
 const lastNames = ['Kumar', 'Sharma', 'Singh', 'Patel', 'Gupta', 'Reddy', 'Chopra', 'Malhotra'];
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-const getRandomItem = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+const getRandomItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 
 const generateRandomData = (): Omit<CardData, 'photo'> => {
   const firstName = getRandomItem(firstNames);
   const lastName = getRandomItem(lastNames);
-  // Generate a 9-digit number that doesn't start with 0
   const studentId = (Math.floor(Math.random() * 900000000) + 100000000).toString();
   return {
     studentId,
@@ -42,12 +42,13 @@ export default function Home() {
     bloodGroup: '',
     photo: null,
   });
+  const [galleryPhotos, setGalleryPhotos] = useState<(string | null)[]>([]);
 
   const cardPreviewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setCardData(prev => ({...prev, ...generateRandomData()}));
-  }, []);
+    handleRegenerate();
+  }, [galleryPhotos]);
 
   const handleUpdate = (newData: Partial<CardData>) => {
     setCardData(prevData => ({ ...prevData, ...newData }));
@@ -55,7 +56,9 @@ export default function Home() {
   
   const handleRegenerate = () => {
     const randomData = generateRandomData();
-    setCardData(prev => ({...prev, ...randomData }));
+    const availablePhotos = galleryPhotos.filter(p => p);
+    const randomPhoto = availablePhotos.length > 0 ? getRandomItem(availablePhotos) : null;
+    setCardData(prev => ({...prev, ...randomData, photo: randomPhoto }));
   };
 
   const handleDownload = () => {
@@ -77,6 +80,10 @@ export default function Home() {
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
             Fill in your details to instantly generate your official identity card. Your preview will update in real-time.
           </p>
+        </div>
+        
+        <div className="mb-8">
+            <ImageGallery onPhotosChange={setGalleryPhotos} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
