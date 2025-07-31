@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 
 type IdCardPreviewProps = {
+  studentId?: string;
   name?: string;
   mobile?: string;
   emergency?: string;
@@ -21,6 +22,7 @@ const CollegeLogo = () => (
 );
 
 export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps>(({
+  studentId = "123456789",
   name = "Your Name",
   mobile = "9876543210",
   emergency = "0123456789",
@@ -40,14 +42,14 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
       </div>
       
       <div className="flex-grow flex">
-        <div className="w-12 bg-gray-800 flex items-center justify-center">
-          <p className="text-white font-bold tracking-[0.4em] uppercase" style={{ writingMode: 'vertical-rl' }}>
+        <div className="w-12 bg-gray-800 flex items-center justify-center" style={{ writingMode: 'vertical-rl' }}>
+          <p className="text-white font-bold tracking-[0.4em] uppercase rotate-180">
             STUDENT
           </p>
         </div>
 
         <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white to-gray-50">
-          <p className="text-primary font-bold mb-2 text-lg">Student ID</p>
+          <p className="text-primary font-bold mb-2 text-lg">Student ID: {studentId}</p>
           <div className="w-32 h-40 rounded-lg border-4 border-primary shadow-md overflow-hidden mb-3 shrink-0">
             <Image
               src={photo || 'https://placehold.co/128x160.png'}

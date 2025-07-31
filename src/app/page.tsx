@@ -18,7 +18,10 @@ const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLower
 const generateRandomData = (): Omit<CardData, 'photo'> => {
   const firstName = getRandomItem(firstNames);
   const lastName = getRandomItem(lastNames);
+  // Generate a 9-digit number that doesn't start with 0
+  const studentId = (Math.floor(Math.random() * 900000000) + 100000000).toString();
   return {
+    studentId,
     name: `${capitalize(firstName)} ${capitalize(lastName)}`,
     mobile: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
     emergency: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
@@ -30,6 +33,7 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
 
 export default function Home() {
   const [cardData, setCardData] = useState<CardData>({
+    studentId: '',
     name: '',
     mobile: '',
     emergency: '',
