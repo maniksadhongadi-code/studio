@@ -50,7 +50,10 @@ export function IdCardForm({ onRegenerate, onDownloadAll, quantity, onQuantityCh
         </div>
       </CardHeader>
       <CardContent>
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-4" onSubmit={(e) => {
+            e.preventDefault();
+            onRegenerate();
+        }}>
            <div className="space-y-2">
               <Label htmlFor="quantity">Quantity</Label>
               <Input 
@@ -67,7 +70,7 @@ export function IdCardForm({ onRegenerate, onDownloadAll, quantity, onQuantityCh
           <div className="space-y-2 pt-2">
             <Label className="block mb-2">Actions</Label>
             <div className="grid grid-cols-1 gap-4">
-                <Button variant="outline" onClick={onRegenerate} className="w-full">
+                <Button variant="outline" type="submit" className="w-full">
                     <Shuffle className="mr-2 h-4 w-4" />
                     Regenerate
                 </Button>

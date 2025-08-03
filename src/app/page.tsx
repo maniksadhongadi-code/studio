@@ -69,24 +69,11 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
   };
 };
 
-export default function Home() {
+export default function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const [cardDataList, setCardDataList] = useState<CardData[]>([]);
   const [galleryPhotos, setGalleryPhotos] = useState<(string | null)[]>([]);
   const [quantity, setQuantity] = useState(1);
   const cardPreviewRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-
-  useEffect(() => {
-    handleRegenerate();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [galleryPhotos]);
-
-  const handleUpdate = (index: number, newData: Partial<CardData>) => {
-    setCardDataList(prevList => {
-      const newList = [...prevList];
-      newList[index] = { ...newList[index], ...newData };
-      return newList;
-    });
-  };
 
   const handleRegenerate = () => {
     const availablePhotos = galleryPhotos.filter(p => p);
@@ -101,6 +88,19 @@ export default function Home() {
     );
 
     setCardDataList(newCardDataList);
+  };
+  
+  useEffect(() => {
+    handleRegenerate();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity, galleryPhotos]);
+
+  const handleUpdate = (index: number, newData: Partial<CardData>) => {
+    setCardDataList(prevList => {
+      const newList = [...prevList];
+      newList[index] = { ...newList[index], ...newData };
+      return newList;
+    });
   };
 
   const handleDownload = (index: number) => {
@@ -179,5 +179,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
