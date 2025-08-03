@@ -195,6 +195,13 @@ export default function Home() {
     }
   };
 
+  const handleDownloadAll = () => {
+    cardDataList.forEach((_, index) => {
+      // Add a small delay between downloads to avoid browser issues with multiple rapid downloads
+      setTimeout(() => handleDownload(index), index * 300);
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
@@ -215,9 +222,10 @@ export default function Home() {
                 onUpdate={() => {}} 
                 initialData={{}}
                 onRegenerate={handleRegenerate}
-                onDownload={() => {}}
+                onDownloadAll={handleDownloadAll}
                 quantity={quantity}
                 onQuantityChange={setQuantity}
+                isDownloadAllDisabled={cardDataList.length === 0}
              />
           </div>
           <div className="lg:col-span-3 space-y-8">

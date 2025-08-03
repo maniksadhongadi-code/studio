@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,12 +20,13 @@ type IdCardFormProps = {
   onUpdate: (data: Partial<CardData>) => void;
   initialData: CardData;
   onRegenerate: () => void;
-  onDownload: () => void;
+  onDownloadAll: () => void;
   quantity: number;
   onQuantityChange: (quantity: number) => void;
+  isDownloadAllDisabled: boolean;
 };
 
-export function IdCardForm({ onRegenerate, quantity, onQuantityChange }: IdCardFormProps) {
+export function IdCardForm({ onRegenerate, onDownloadAll, quantity, onQuantityChange, isDownloadAllDisabled }: IdCardFormProps) {
   
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
@@ -68,6 +70,10 @@ export function IdCardForm({ onRegenerate, quantity, onQuantityChange }: IdCardF
                 <Button variant="outline" onClick={onRegenerate} className="w-full">
                     <Shuffle className="mr-2 h-4 w-4" />
                     Regenerate
+                </Button>
+                 <Button onClick={onDownloadAll} disabled={isDownloadAllDisabled} className="w-full">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download All
                 </Button>
             </div>
           </div>
