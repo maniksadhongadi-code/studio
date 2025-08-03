@@ -1,10 +1,14 @@
+
 'use client';
 
-import { useState, useEffect, useRef, ComponentProps } from 'react';
+import { useState, useEffect, useRef, ComponentProps, createRef } from 'react';
 import html2canvas from 'html2canvas';
 import { IdCardForm } from '@/components/id-card-form';
 import { IdCardPreview } from '@/components/id-card-preview';
 import { ImageGallery } from '@/components/image-gallery';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 
 type CardData = ComponentProps<typeof IdCardPreview>;
 
@@ -89,7 +93,7 @@ const firstNames = [
   'Sushma', 'Sushmita', 'Susmita', 'Swagata', 'Swapna', 'Swarnalata', 'Swati', 'Sweta', 'Tabassum', 'Tanushree',
   'Tripti', 'Trisha', 'Tulsi', 'Uma', 'Upasana', 'Urmila', 'Usha', 'Ushakiran', 'Ushashi', 'Ushma',
   'Utpala', 'Vaishali', 'Vandana', 'Vanita', 'Varsha', 'Vasudha', 'Vasundhara', 'Veena', 'Vidisha', 'Vidula',
-  'Vijaya', 'Vijayalakshmi', 'Vimala', 'Vinata', 'Vinaya', 'Vineeta', 'Vinita', 'Yamini', 'Yamuna', 'Yasmin',
+  'Vijaya', 'Vijayalakshmi', 'Vimala', 'Vinata', 'Vinaya', 'Vineeta', 'Yamini', 'Yamuna', 'Yasmin',
   'Yogita', 'Yojana', 'Zeenat'
 ];
 const lastNames = [
@@ -145,41 +149,46 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
 };
 
 export default function Home() {
-  const [cardData, setCardData] = useState<CardData>({
-    studentId: '',
-    name: '',
-    mobile: '',
-    emergency: '',
-    session: '',
-    department: '',
-    bloodGroup: '',
-    photo: null,
-  });
+  const [cardDataList, setCardDataList] = useState<CardData[]>([]);
   const [galleryPhotos, setGalleryPhotos] = useState<(string | null)[]>([]);
-
-  const cardPreviewRef = useRef<HTMLDivElement>(null);
+  const [quantity, setQuantity] = useState(1);
+  const cardPreviewRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   useEffect(() => {
     handleRegenerate();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [galleryPhotos]);
 
-  const handleUpdate = (newData: Partial<CardData>) => {
-    setCardData(prevData => ({ ...prevData, ...newData }));
-  };
-  
-  const handleRegenerate = () => {
-    const randomData = generateRandomData();
-    const availablePhotos = galleryPhotos.filter(p => p);
-    const randomPhoto = availablePhotos.length > 0 ? getRandomItem(availablePhotos) : null;
-    setCardData(prev => ({...prev, ...randomData, photo: randomPhoto }));
+  const handleUpdate = (index: number, newData: Partial<CardData>) => {
+    setCardDataList(prevList => {
+      const newList = [...prevList];
+      newList[index] = { ...newList[index], ...newData };
+      return newList;
+    });
   };
 
-  const handleDownload = () => {
-    if (cardPreviewRef.current) {
-      html2canvas(cardPreviewRef.current, { scale: 3 }).then(canvas => {
+  const handleRegenerate = () => {
+    const availablePhotos = galleryPhotos.filter(p => p);
+    const newCardDataList = Array.from({ length: quantity }, () => {
+        const randomData = generateRandomData();
+        const randomPhoto = availablePhotos.length > 0 ? getRandomItem(availablePhotos) : null;
+        return { ...randomData, photo: randomPhoto };
+    });
+    
+    cardPreviewRefs.current = newCardDataList.map(
+        (_, i) => cardPreviewRefs.current[i] ?? createRef()
+    );
+
+    setCardDataList(newCardDataList);
+  };
+
+  const handleDownload = (index: number) => {
+    const cardRef = cardPreviewRefs.current[index];
+    if (cardRef && cardRef.current) {
+      html2canvas(cardRef.current, { scale: 3 }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'id-card.png';
+        const cardData = cardDataList[index];
+        link.download = `id-card-${cardData.studentId || 'download'}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
@@ -192,7 +201,7 @@ export default function Home() {
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">IdentiCard Generator</h1>
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
-            Fill in your details to instantly generate your official identity card. Your preview will update in real-time.
+            Upload your photos, set the quantity, and instantly generate official identity cards.
           </p>
         </div>
         
@@ -201,12 +210,38 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-          <div className="lg:col-span-3">
-            <IdCardForm onUpdate={handleUpdate} initialData={cardData} onRegenerate={handleRegenerate} onDownload={handleDownload}/>
+          <div className="lg:col-span-2 lg:sticky lg:top-8">
+             <IdCardForm
+                onUpdate={() => {}} 
+                initialData={{}}
+                onRegenerate={handleRegenerate}
+                onDownload={() => {}}
+                quantity={quantity}
+                onQuantityChange={setQuantity}
+             />
           </div>
-          <div className="lg:col-span-2 flex justify-center lg:sticky lg:top-8">
-            <IdCardPreview ref={cardPreviewRef} {...cardData} />
-          </div>
+          <div className="lg:col-span-3 space-y-8">
+            {cardDataList.length > 0 ? (
+                cardDataList.map((cardData, index) => (
+                    <div key={index} className="flex flex-col items-center">
+                         <div className="w-[350px] mb-4">
+                            <Label className="text-lg font-semibold text-center block">
+                               Preview for {cardData.name}
+                            </Label>
+                         </div>
+                        <IdCardPreview ref={cardPreviewRefs.current[index]} {...cardData} />
+                        <Button onClick={() => handleDownload(index)} className="mt-4 w-full max-w-[350px]">
+                            <Download className="mr-2 h-4 w-4" />
+                            Download Card
+                        </Button>
+                    </div>
+                ))
+            ) : (
+                <div className="text-center py-10 text-muted-foreground">
+                    <p>Click &quot;Regenerate&quot; to create ID cards.</p>
+                </div>
+            )}
+           </div>
         </div>
       </main>
       <footer className="text-center p-4 text-muted-foreground text-sm border-t">
@@ -215,3 +250,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
