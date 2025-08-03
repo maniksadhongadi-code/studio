@@ -139,8 +139,13 @@ export default function Home({ searchParams }: { searchParams?: { [key: string]:
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+    <div className="min-h-screen bg-background text-foreground relative">
+      <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+          <span className="text-9xl font-black text-gray-200 opacity-20 transform -rotate-12 select-none">
+              NUR &amp; GURU
+          </span>
+      </div>
+      <main className="container mx-auto px-4 py-8 md:px-6 md:py-12 relative z-10">
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">IdentiCard Generator</h1>
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
@@ -188,7 +193,7 @@ export default function Home({ searchParams }: { searchParams?: { [key: string]:
            </div>
         </div>
       </main>
-      <footer className="text-center p-4 text-muted-foreground text-sm border-t">
+      <footer className="text-center p-4 text-muted-foreground text-sm border-t relative z-10 bg-background">
         <p>Built with Next.js and ShadCN UI. Designed for modern identity solutions.</p>
       </footer>
     </div>

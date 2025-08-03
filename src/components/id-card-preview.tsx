@@ -63,12 +63,6 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
       </div>
       
       <div className="flex-grow flex relative">
-        <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-            <span className="text-8xl font-black text-gray-200 opacity-70 transform -rotate-12 select-none">
-                NUR &amp; GURU
-            </span>
-        </div>
-        
         <div className="w-12 bg-gray-800 flex items-center justify-center relative z-10 shrink-0">
            <StudentVerticalText />
         </div>
