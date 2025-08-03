@@ -22,6 +22,26 @@ const CollegeLogo = () => (
     </div>
 );
 
+const StudentVerticalText = () => (
+    <svg width="100%" height="100%" viewBox="0 0 48 550" preserveAspectRatio="none" className="h-full">
+        <text
+            x="24"
+            y="275"
+            transform="rotate(-90, 24, 275)"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="white"
+            fontSize="16"
+            fontWeight="bold"
+            letterSpacing="0.4em"
+            className="uppercase"
+        >
+            STUDENT
+        </text>
+    </svg>
+);
+
+
 export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps>(({
   studentId = "123456789",
   name = "Your Name",
@@ -34,7 +54,7 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
 }, ref) => {
   return (
     <Card ref={ref} className="w-[350px] h-[550px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden font-sans relative transform transition-transform duration-500 hover:scale-105">
-      <div className="h-28 bg-primary flex items-center justify-end p-4 relative">
+      <div className="h-28 bg-primary flex items-center justify-end p-4 relative shrink-0">
         <CollegeLogo />
         <div className="text-center w-full pl-12">
           <h2 className="font-bold text-xl leading-tight text-white">RAMGARH ENGINEERING COLLEGE</h2>
@@ -43,32 +63,17 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
       </div>
       
       <div className="flex-grow flex relative">
-        <div className="absolute inset-0 flex items-center justify-center z-0">
-          <span className="text-8xl font-black text-gray-200 opacity-70 transform -rotate-12 select-none">
-            NUR & GURU
-          </span>
+        <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+            <span className="text-8xl font-black text-gray-200 opacity-70 transform -rotate-12 select-none">
+                NUR &amp; GURU
+            </span>
         </div>
         
-        <div className="w-12 bg-gray-800 flex items-center justify-center relative z-10">
-           <svg width="100%" height="100%" viewBox="0 0 48 550" preserveAspectRatio="none" className="h-full">
-            <text
-              x="24"
-              y="275"
-              transform="rotate(-90, 24, 275)"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill="white"
-              fontSize="16"
-              fontWeight="bold"
-              letterSpacing="0.4em"
-              className="uppercase"
-            >
-              STUDENT
-            </text>
-          </svg>
+        <div className="w-12 bg-gray-800 flex items-center justify-center relative z-10 shrink-0">
+           <StudentVerticalText />
         </div>
 
-        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white/80 to-gray-50/80 relative z-10">
+        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-transparent relative z-10">
           <p className="text-primary font-bold mb-2 text-lg">Student ID: {studentId}</p>
           <div className="w-32 h-40 rounded-lg border-4 border-primary shadow-md overflow-hidden mb-3 shrink-0">
             <Image
@@ -114,7 +119,7 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
           </div>
         </div>
       </div>
-       <div className="bg-primary text-white p-2.5 text-center text-xs">
+       <div className="bg-primary text-white p-2.5 text-center text-xs shrink-0">
           <p className="font-extrabold tracking-wide">RAMGARH ENGINEERING COLLEGE</p>
           <p className="text-[10px]">Murubanda, P.O-Bokaro, P.S-Ramgarh, Dist-Ramgarh, Jharkhand - 825101</p>
         </div>
