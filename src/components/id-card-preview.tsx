@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
@@ -41,17 +42,23 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
         </div>
       </div>
       
-      <div className="flex-grow flex">
-        <div className="w-12 bg-gray-800 flex items-center justify-center relative">
-          <svg width="100%" height="100%" viewBox="0 0 48 400" preserveAspectRatio="xMidYMid meet">
+      <div className="flex-grow flex relative">
+        <div className="absolute inset-0 flex items-center justify-center z-0">
+          <span className="text-8xl font-black text-gray-200 opacity-70 transform -rotate-12 select-none">
+            NUR & GURU
+          </span>
+        </div>
+        
+        <div className="w-12 bg-gray-800 flex items-center justify-center relative z-10">
+           <svg width="100%" height="100%" viewBox="0 0 48 550" preserveAspectRatio="none" className="h-full">
             <text
               x="24"
-              y="200"
-              transform="rotate(-90, 24, 200)"
+              y="275"
+              transform="rotate(-90, 24, 275)"
               textAnchor="middle"
               dominantBaseline="middle"
               fill="white"
-              fontSize="14"
+              fontSize="16"
               fontWeight="bold"
               letterSpacing="0.4em"
               className="uppercase"
@@ -61,7 +68,7 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
           </svg>
         </div>
 
-        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white to-gray-50">
+        <div className="flex-1 pt-4 pb-4 px-4 flex flex-col items-center text-gray-800 bg-gradient-to-b from-white/80 to-gray-50/80 relative z-10">
           <p className="text-primary font-bold mb-2 text-lg">Student ID: {studentId}</p>
           <div className="w-32 h-40 rounded-lg border-4 border-primary shadow-md overflow-hidden mb-3 shrink-0">
             <Image
