@@ -141,7 +141,7 @@ export default function Home({ searchParams }: { searchParams?: { [key: string]:
   return (
     <div className="min-h-screen bg-background text-foreground relative">
       <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-          <span className="text-9xl font-black text-gray-200 opacity-20 transform -rotate-12 select-none">
+          <span className="text-9xl font-black text-gray-400 opacity-40 transform -rotate-12 select-none">
               NUR &amp; GURU
           </span>
       </div>
