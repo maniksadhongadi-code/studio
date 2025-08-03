@@ -36,7 +36,7 @@ const lastNames = [
     'Coelho', 'Mascarenhas', 'Gonsalves', 'Rodrigues', 'Pereira', 'Almeida', 'Noronha', 'Sequeira', 'Telles', 'Figueiredo',
     'Menezes', 'Fonseca', 'Deol', 'Dhaliwal', 'Randhawa', 'Cheema', 'Bains', 'Kahlon', 'Sekhon', 'Virk',
     'Ahuja', 'Chadha', 'Duggal', 'Gandhi', 'Johar', 'Khurana', 'Luthra', 'Madan', 'Nanda', 'Oberoi',
-    'Raina', 'Sabharwal', 'Talwar', 'Wadhwa', 'Yadav', 'Zutshi', 'Ahmed', 'Khan', 'Ansari', 'Shaikh',
+    'Raina', 'Sabharwal', 'Talwar', 'Wadhwa', 'Zutshi', 'Ahmed', 'Khan', 'Ansari', 'Shaikh',
     'Siddiqui', 'Qureshi', 'Syed', 'Pathan', 'Memon', 'Chaudhari', 'Patil', 'Jadhav', 'Shinde', 'Gaikwad',
     'More', 'Pawar', 'Kadam', 'Sawant', 'Desai', 'Joglekar', 'Phadke', 'Godbole', 'Kelkar', 'Gokhale',
     'Sathe', 'Datar', 'Limaye', 'Inamdar', 'Paranjape', 'Nene', 'Vaidya', 'Rane', 'Chavan', 'Mohite',
@@ -45,7 +45,7 @@ const lastNames = [
     'Bajaj', 'Hinduja', 'Goenka', 'Singhania', 'Ruia', 'Munjal', 'Burman', 'Poonawalla', 'Parikh', 'Amin',
     'Dalmia', 'Kothari', 'Bangur', 'Somani', 'Piramal', 'Thapar', 'Jalan', 'Kanoria', 'Khaitan', 'Saraf',
     'Podar', 'Rupramka', 'Lohia', 'Neotia', 'Kanwar', 'Nayar', 'Ansal', 'Raheja', 'Hiranandani', 'Nadar',
-    'Murthy', 'Premji', 'Nilekani', 'Gopalakrishnan', 'Shibulal', 'Aggarwal', 'Bhavish', 'Bansal', 'Yadav', 'Zaveri',
+    'Murthy', 'Premji', 'Nilekani', 'Gopalakrishnan', 'Shibulal', 'Aggarwal', 'Bhavish', 'Bansal', 'Zaveri',
     'Contractor', 'Engineer', 'Mistry', 'Merchant', 'Vakil', 'Doctor', 'Daruwalla', 'Sodawaterbottleopenerwala', 'Wankhede'
 ];
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -69,18 +69,33 @@ const generateRandomData = (): Omit<CardData, 'photo'> => {
   };
 };
 
-export default function Home({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+// Function to shuffle an array
+const shuffleArray = (array: any[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
+
+export default function Home({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined } }) {
   const [cardDataList, setCardDataList] = useState<CardData[]>([]);
   const [galleryPhotos, setGalleryPhotos] = useState<(string | null)[]>([]);
   const [quantity, setQuantity] = useState(1);
   const cardPreviewRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   const handleRegenerate = () => {
-    const availablePhotos = galleryPhotos.filter(p => p);
-    const newCardDataList = Array.from({ length: quantity }, () => {
+    const availablePhotos = galleryPhotos.filter((p): p is string => p !== null);
+    const shuffledPhotos = shuffleArray(availablePhotos);
+
+    const newCardDataList = Array.from({ length: quantity }, (_, index) => {
         const randomData = generateRandomData();
-        const randomPhoto = availablePhotos.length > 0 ? getRandomItem(availablePhotos) : null;
-        return { ...randomData, photo: randomPhoto };
+        const photo = availablePhotos.length > 0 
+            ? shuffledPhotos[index % shuffledPhotos.length] 
+            : null;
+        return { ...randomData, photo };
     });
     
     cardPreviewRefs.current = newCardDataList.map(
