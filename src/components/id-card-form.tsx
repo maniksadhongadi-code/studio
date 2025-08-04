@@ -21,19 +21,22 @@ type IdCardFormProps = {
   initialData: CardData;
   onRegenerate: () => void;
   onDownloadAll: () => void;
-  quantity: number;
-  onQuantityChange: (quantity: number) => void;
+  quantity: number | '';
+  onQuantityChange: (quantity: number | '') => void;
   isDownloadAllDisabled: boolean;
 };
 
 export function IdCardForm({ onRegenerate, onDownloadAll, quantity, onQuantityChange, isDownloadAllDisabled }: IdCardFormProps) {
   
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value > 0) {
-      onQuantityChange(value);
-    } else if (e.target.value === '') {
-      onQuantityChange(1);
+    const value = e.target.value;
+    if (value === '') {
+        onQuantityChange('');
+    } else {
+        const numValue = parseInt(value, 10);
+        if (!isNaN(numValue) && numValue > 0) {
+            onQuantityChange(numValue);
+        }
     }
   };
 
