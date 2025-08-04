@@ -42,7 +42,7 @@ const StudentVerticalText = () => (
 );
 
 
-export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps>(({
+export const IdCardPreview = React.memo(React.forwardRef<HTMLDivElement, IdCardPreviewProps>(({
   studentId = "123456789",
   name = "Your Name",
   mobile = "9876543210",
@@ -119,6 +119,8 @@ export const IdCardPreview = React.forwardRef<HTMLDivElement, IdCardPreviewProps
         </div>
     </Card>
   );
-});
+}));
 
 IdCardPreview.displayName = 'IdCardPreview';
+
+    
