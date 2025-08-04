@@ -200,7 +200,7 @@ export default function Home({ searchParams }: { searchParams?: { [key: string]:
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
-      <div className="absolute top-4 right-4 z-20">
+      <div className="fixed top-4 right-4 z-20">
           <span className="text-2xl font-bold text-primary">
               NUR &amp; GURU
           </span>
@@ -259,4 +259,3 @@ export default function Home({ searchParams }: { searchParams?: { [key: string]:
   );
 }
 
-    
